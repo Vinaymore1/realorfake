@@ -20,6 +20,7 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 app = Flask(__name__)
+
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:5173"]}})
 
 MODEL_PATH = './model/svm_model.pkl'
@@ -84,6 +85,10 @@ def retrain_model():
     print(f"✅ Retrained model with accuracy: {acc:.4f}")
     return acc
 
+@app.route('/')
+def home():
+    return "🚩 Jay Shree Ram! Flask ML Server is running successfully."
+
 # --- Flask Endpoints ---
 @app.route('/predict' , methods=['GET'])
 def predict_with_svm():
@@ -146,5 +151,6 @@ def retrain():
 # --- Startup ---
 if __name__ == '__main__':
     load_model()
-    print("🚀 Flask ML Server running on port 5001")
-    app.run(port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    print(f"🚀 Flask ML Server running on port {port}")
+    app.run(host="0.0.0.0", port=port, debug=True)

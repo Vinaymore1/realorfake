@@ -50,8 +50,8 @@ def is_gibberish(text):
 
 # --- Model retraining logic ---
 def retrain_model():
-    real_path = '../data/real_news.json'
-    fake_path = '../data/fake_news_sample.csv'
+    real_path = './data/real_news.json'
+    fake_path = './data/fake_news_sample.csv'
 
     with open(real_path, 'r', encoding='utf-8') as f:
         real_news = json.load(f)
